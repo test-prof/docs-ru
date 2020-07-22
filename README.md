@@ -38,6 +38,12 @@ brew install hunspell
 gem install forspell
 ```
 
+- Install [yaspeller](https://github.com/hcodes/yaspeller):
+
+```sh
+npm install -g yaspeller
+```
+
 - Install StandardRB and `rubocop-md`:
 
 ```sh

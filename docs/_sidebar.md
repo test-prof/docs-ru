@@ -18,7 +18,7 @@
   * [FactoryDefault](/recipes/factory_default.md)
   * [FactoryAllStub](/recipes/factory_all_stub.md)
   * [RSpec Stamp](/recipes/rspec_stamp.md)
-  * [Сэмлирование тестов](/recipes/tests_sampling.md)
+  * [Сэмплирование тестов](/recipes/tests_sampling.md)
   * [Active Record Shared Connection](/recipes/active_record_shared_connection.md)
   * [Rails Logging](/recipes/logging.md)
 

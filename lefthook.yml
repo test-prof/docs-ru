@@ -12,6 +12,10 @@ pre-commit:
       tags: grammar
       glob: "**/*.md"
       run: forspell {staged_files}
+    yaspeller:
+      tags: grammar
+      glob: "**/*.md"
+      run: yaspeller {staged_files}
     rubocop:
       tags: style
       glob: "**/*.md"

@@ -4,7 +4,7 @@
 
 Поддерживаемые версии Ruby:
 
-- Ruby (MRI) >= 2.5.0 (для Ruby 2.2 использутей TestProf < 0.7.0, Ruby 2.3 — TestProf ~> 0.7.0, Ruby 2.4 — TestProf <0.12.0);
+- Ruby (MRI) >= 2.5.0 (для Ruby 2.2 используйте TestProf < 0.7.0, Ruby 2.3 — TestProf ~> 0.7.0, Ruby 2.4 — TestProf <0.12.0);
 
 - JRuby >= 9.1.0.0 (некоторые инструменты требуют версии 9.2.7+).
 

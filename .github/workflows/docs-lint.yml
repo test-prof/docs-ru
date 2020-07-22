@@ -78,3 +78,13 @@ jobs:
       run: |
         export PATH=$PATH:$(go env GOPATH)/bin
         liche -c 2 -r docs/* -d docs/
+
+  yaspeller:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Yaspeller Action
+      uses: heytitle/github-action-yaspeller@v0.0.7
+      with:
+        ext: "*.md"
+        dir: "./docs"
