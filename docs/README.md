@@ -78,7 +78,7 @@ TestProf представляет собой набор инструментов
 
 - [Интеграция со StackProf](./profilers/stack_prof.md)
 
-- [Event Prof](./profilers/event_prof.md) (e.g. ActiveSupport notifications)
+- [Event Prof](./profilers/event_prof.md) (включая ActiveSupport Notifications)
 
 - [Tag Prof](./profilers/tag_prof.md)
 
