@@ -43,8 +43,8 @@ TestProf представляет собой набор инструментов
 
 ## Кто уже использует TestProf
 
-- [Discourse](https://github.com/discourse/discourse) уменьшили [скорость выполнения тестов на ~27%](https://twitter.com/samsaffron/status/1125602558024699904)
-- [Gitlab](https://gitlab.com/gitlab-org/gitlab-ce) уменьшили [скорость выполнения тестов API на 39%](https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/14370)
+- [Discourse](https://github.com/discourse/discourse) уменьшили [время выполнения тестов на ~27%](https://twitter.com/samsaffron/status/1125602558024699904)
+- [Gitlab](https://gitlab.com/gitlab-org/gitlab-ce) уменьшили [время выполнения тестов API на 39%](https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/14370)
 - [CodeTriage](https://github.com/codetriage/codetriage)
 - [Dev.to](https://github.com/thepracticaldev/dev.to)
 - [Open Project](https://github.com/opf/openproject)
