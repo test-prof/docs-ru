@@ -4,6 +4,8 @@
 
 Посмотреть её можно будет [на основном сайте](https://test-prof.evilmartians.io/).
 
+[Инструкция по локализации](https://github.com/test-prof/docs/blob/master/TRANSLATIONS.md).
+
 ### Linters
 
 We try to keep our documentation both correct and _stylish_ using the following tools:
