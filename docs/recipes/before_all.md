@@ -72,9 +72,9 @@ require "test_prof/recipes/rspec/before_all"
 (`use_transactional_fixtures` в Rails < 5.1), RSpec Rails' `use_transactional_fixtures`,
 DatabaseCleaner, или свой код, который будет создавать транзакцию перед тестом и откатывать ее после.
 
-### Minitest (Experimental)
+### Minitest (Экспериментальный)
 
-\*_Experimental_ это значит, что я его еще не пробовал в _бою_.
+\*_Экспериментальный_ это значит, что я его еще не пробовал в _бою_.
 
 Можно также использовать `before_all` с Minitest:
 
