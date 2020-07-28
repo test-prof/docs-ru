@@ -2,11 +2,11 @@
 
 В Rails есть отличная фича – `transactional_tests`, т.е. запуск каждого теста в рамках транзакции, которая в конце концов откатывается назад.
 
-Thus no example pollutes global database state.
+Таким образом, ни один пример не загрязняет состояние глобальной базы данных.
 
-But what if have a lot of examples with a common setup?
+Но что делать, если есть много тестов с общей настройкой?
 
-Of course, we can do something like this:
+Конечно, мы можем сделать что-то вроде этого:
 
 ```ruby
 describe BeatleWeightedSearchQuery do
@@ -17,11 +17,11 @@ describe BeatleWeightedSearchQuery do
     @john = create(:beatle, name: "John")
   end
 
-  # and about 15 examples here
+  # и около 15 тестов здесь
 end
 ```
 
-Or you can try `before(:all)`:
+Или вы можете попробовать `before(:all)`:
 
 ```ruby
 describe BeatleWeightedSearchQuery do
@@ -34,10 +34,10 @@ describe BeatleWeightedSearchQuery do
 end
 ```
 
-But then you have to deal with database cleaning, which can be either tricky or slow.
+Но тогда вам придется иметь дело с очисткой базы данных, которая может быть шустрой или медленной.
 
-There is a better option: we can wrap the whole example group into a transaction.
-And that's how `before_all` works:
+Есть лучший вариант: мы можем обернуть всю группу примеров в транзакцию.
+И вот как работает `before_all`:
 
 ```ruby
 describe BeatleWeightedSearchQuery do
@@ -50,34 +50,33 @@ describe BeatleWeightedSearchQuery do
 end
 ```
 
-That's all!
+Вот и все!
 
-**NOTE**: requires RSpec >= 3.3.0.
+**Примечание**: требуется RSpec >= 3.3.0.
 
-**NOTE**: Great superpower that `before_all` provides comes with a great responsibility.
-Make sure to check the [Caveats section](#caveats) of this document for details.
+**Примечание**: Большая сила которую дает `before_all` накладывает большую ответственность.
+Обязательно проверьте [раздел Предостережения](#caveats) этого документа для получения более подробной информации.
 
-## Instructions
+## Инструкция
 
 ### RSpec
 
-In your `rails_helper.rb` (or `spec_helper.rb` after *ActiveRecord* has been loaded):
+В вашем `rails_helper.rb` (или `spec_helper.rb` после загрузки *ActiveRecord*):
 
 ```ruby
 require "test_prof/recipes/rspec/before_all"
 ```
 
-**NOTE**: `before_all` (and `let_it_be` that depends on it), does not wrap individual
-tests in a database transaction of its own. Use Rails' native `use_transactional_tests`
-(`use_transactional_fixtures` in Rails < 5.1), RSpec Rails' `use_transactional_fixtures`,
-DatabaseCleaner, or custom code that begins a transaction before each test and rolls it
-back after.
+**Примечание**: `before_all` (и `let_it_be` что от него зависит), не оборачивает индивидуальное
+тесты в собственной транзакции базы данных. Используйте из Rails `use_transactional_tests`
+(`use_transactional_fixtures` в Rails < 5.1), RSpec Rails' `use_transactional_fixtures`,
+DatabaseCleaner, или свой код, который будет создавать транзакцию перед тестом и откатывать ее после.
 
 ### Minitest (Experimental)
 
-\*_Experimental_ means that I haven't tried it in _production_.
+\*_Experimental_ это значит, что я его еще не пробовал в _бою_.
 
-It is possible to use `before_all` with Minitest too:
+Можно также использовать `before_all` с Minitest:
 
 ```ruby
 require "test_prof/recipes/minitest/before_all"
@@ -98,9 +97,9 @@ end
 
 ## Database adapters
 
-You can use `before_all` not only with ActiveRecord (which is supported out-of-the-box) but with other database tools too.
+Вы можете использовать `before_all` не только с ActiveRecord (который поддерживается из коробки), но и с другими инструментами для работы с базой данных.
 
-All you need is to build a custom adapter and configure `before_all` to use it:
+Все, что вам нужно, - это создать пользовательский адаптер и настроить 'before_all` для его использования:
 
 ```ruby
 class MyDBAdapter
@@ -124,7 +123,7 @@ TestProf::BeforeAll.adapter = MyDBAdapter.new
 
 > @since v0.9.0
 
-You can register callbacks to run before/after `before_all` opens and rollbacks a transaction:
+Вы можете зарегистрировать колбеки для до/после открытия и отката транзакции `before_all:
 
 ```ruby
 TestProf::BeforeAll.configure do |config|
@@ -140,13 +139,13 @@ TestProf::BeforeAll.configure do |config|
 end
 ```
 
-See the example in [Discourse](https://github.com/discourse/discourse/blob/4a1755b78092d198680c2fe8f402f236f476e132/spec/rails_helper.rb#L81-L141).
+См. пример [Discourse](https://github.com/discourse/discourse/blob/4a1755b78092d198680c2fe8f402f236f476e132/spec/rails_helper.rb#L81-L141).
 
-## Caveats
+## Предостережения
 
-### Database is rolled back to a pristine state, but the objects are not
+### База данных откатывается в первозданное состояние, но объекты - нет
 
-If you modify objects generated within a `before_all` block in your examples, you maybe have to re-initiate them:
+Если вы измените объекты, созданные в блоке `before_all`, в вашем тесте, то вам, возможно, придется повторно инициировать их:
 
 ```ruby
 before_all do
@@ -156,26 +155,26 @@ end
 let(:user) { @user }
 
 it "when user is admin" do
-  # we modified our object in-place!
+  # мы изменили наш объект на месте!
   user.update!(role: 1)
   expect(user).to be_admin
 end
 
 it "when user is regular" do
-  # now @user's state depends on the order of specs!
+  # теперь состояние @user зависит от порядка тестов!
   expect(user).not_to be_admin
 end
 ```
 
-The easiest way to solve this is to reload record for every example (it's still much faster than creating a new one):
+Самый простой способ решить эту проблему - перезагрузить запись для каждого теста (это все равно намного быстрее, чем создание нового):
 
 ```ruby
 before_all do
   @user = create(:user)
 end
 
-# Note, that @user.reload may not be enough,
-# 'cause it doesn't reset associations
+# Обратите внимание, что @user.reload может быть не достаточным,
+# потому что он не сбрасывает ассоциации
 let(:user) { User.find(@user.id) }
 
 # or with Minitest
@@ -184,31 +183,31 @@ def setup
 end
 ```
 
-### Database is not rolled back between tests
+### База данных не откатывается между тестами
 
-Database is not rolled back between RSpec examples, only between example groups.
-We don't want to reinvent the wheel and encourage you to use other tools that
-provide this out of the box.
+База данных не откатывается между тестами, а только между группами тестов.
+Мы не хотим изобретать велосипед, а хотим поощрять вас использовать другие инструменты, которые
+предоставляют это из коробки..
 
-If you're using RSpec Rails, turn on `RSpec.configuration.use_transactional_fixtures` in your `spec/rails_helper.rb`:
+Если вы используете RSpec Rails, включите `RSpec.configuration.use_transactional_fixtures` в вашем `spec/rails_helper.rb`:
 
 ```ruby
 RSpec.configure do |config|
-  config.use_transactional_fixtures = true # RSpec takes care to use `use_transactional_tests` or `use_transactional_fixtures` depending on the Rails version used
+  config.use_transactional_fixtures = true # RSpec позаботится о том, чтобы использовать `use_transactional_tests` or `use_transactional_fixtures` в зависимости от вашей версии Rails
 end
 ```
 
-Make sure to set `use_transactional_tests` (`use_transactional_fixtures` in Rails < 5.1) to `true` if you're using Minitest.
+Убедитесь, что установлен `use_transactional_tests` (`use_transactional_fixtures` в Rails < 5.1) на `true` если вы используете Minitest.
 
-If you're using DatabaseCleaner, make sure it rolls back the database between tests.
+Если вы используете DatabaseCleaner, убедитесь, что он откатывает базу данных между тестами.
 
 ## Usage with Isolator
 
-[Isolator](https://github.com/palkan/isolator) is a runtime detector of potential atomicity breaches within DB transactions (e.g. making HTTP calls or enqueuing background jobs).
+[Isolator](https://github.com/palkan/isolator) Это рантайм детектор потенциальных нарушений атомарности в транзакциях БД (например, выполнение HTTP-вызовов или постановка в очередь фоновых заданий).
 
-TestProf recognizes Isolator out-of-the-box and make it ignore `before_all` transactions.
+TestProf распознает Isolator из коробки и делает так чтобы он игнорировал `before_all` транзакции.
 
-You just need to make sure that you require `isolator` after TestProf helpers or require the patch explicitly:
+Вам просто нужно убедиться, что вы подключили `isolator` после _TestProf helpers_ или подключили патч явно::
 
 ```ruby
 # after loading before_all or/and let_it_be
