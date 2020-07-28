@@ -1,6 +1,6 @@
 # Factory Doctor
 
-One common bad pattern that slows our tests down is unnecessary database manipulation. Consider a _bad_ example:
+Одна из распространенных причин, замедляющих наши тесты - это не нужные манипуляции с базой данных. Рассмотрим _плохой_ пример:
 
 ```ruby
 # with FactoryBot/FactoryGirl
@@ -18,7 +18,7 @@ it "validates name presence" do
 end
 ```
 
-Here we create a new user record, run all callbacks and validations and save it to the database. We don't need all these! Here is a _good_ example:
+Здесь мы создаем новую запись, запуская коллбеки и валидация и сохраняем это в базу данных. Нам все это не нужно!  Вот _хороший_ пример::
 
 ```ruby
 # with FactoryBot/FactoryGirl
@@ -36,11 +36,11 @@ it "validates name presence" do
 end
 ```
 
-Read more about [`build_stubbed`](https://robots.thoughtbot.com/use-factory-girls-build-stubbed-for-a-faster-test).
+Подробнее о [`build_stubbed`](https://robots.thoughtbot.com/use-factory-girls-build-stubbed-for-a-faster-test).
 
-FactoryDoctor is a tool that helps you identify such _bad_ tests, i.e. tests that perform unnecessary database queries.
+FactoryDoctor это инструмент, который помогает вам найти такие _плохие_ тесты, т. е. тесты, которые выполняют ненужные запросы к базе данных.
 
-Example output:
+Пример вывода:
 
 ```sh
 [TEST PROF INFO] FactoryDoctor report
@@ -53,12 +53,12 @@ User (./spec/models/user_spec.rb:3) (3 records created, 00:00.628)
   validates email (./spec/user_spec.rb:8) – 2 records created, 00:00.514
 ```
 
-**NOTE**: have you noticed the "potentially" word? Unfortunately, FactoryDoctor is not a
-magician (it's still learning) and sometimes it produces false negatives and false positives too.
+**Примечание**: вы обратили на слово “potentially”(потенциально)? К сожалению, FactoryDoctor не волшебник (он все еще учится)
+и иногда он выдает ложные отрицательные и ложные положительные результаты тоже.
 
-Please, submit an [issue](https://github.com/test-prof/test-prof/issues) if you found a case which makes FactoryDoctor fail.
+Пожалуйста, создайте [issue](https://github.com/test-prof/test-prof/issues) если вы нашли пример, в котором FactoryDoctor ошибся.
 
-You can also tell FactoryDoctor to ignore specific examples/groups. Just add the `:fd_ignore` tag to it:
+Вы также можете сказать FactoryDoctor, чтобы он игнорировал определенные `examples/groups`. Просто добавьте `:fd_ignore` тег для `it`:
 
 ```ruby
 # won't be reported as offense
@@ -69,47 +69,47 @@ it "is ignored", :fd_ignore do
 end
 ```
 
-## Instructions
+## Инструкции
 
-FactoryDoctor supports:
+FactoryDoctor поддерживает:
 
 - FactoryGirl/FactoryBot
 - Fabrication (**@since v0.9.0**).
 
 ### RSpec
 
-To activate FactoryDoctor use `FDOC` environment variable:
+Для активации FactoryDoctor используйте переменную окружения `FDOC`:
 
 ```sh
 FDOC=1 rspec ...
 ```
 
-### Using with RSpecStamp
+### Использование с RSpecStamp
 
-FactoryDoctor can be used with [RSpec Stamp](../recipes/rspec_stamp.md) to automatically mark _bad_ examples with custom tags. For example:
+FactoryDoctor может быть использован вместе с [RSpec Stamp](../recipes/rspec_stamp.md) для автоматического выделению _плохих_ тестов с кастомным тегом. Например:
 
 ```sh
 FDOC=1 FDOC_STAMP="fdoc:consider" rspec ...
 ```
 
-After running the command above all _potentially_ bad examples would be marked with the `fdoc: :consider` tag.
+После запуска команды выше все _потенциально_ плохие тесты будут помечены тегом `fdoc: :consider`.
 
 ### Minitest
 
-To activate FactoryDoctor use `FDOC` environment variable:
+Для активации FactoryDoctor используйте переменную окружения `FDOC`:
 
 ```sh
 FDOC=1 ruby ...
 ```
 
-or use CLI option as shown below:
+Или используйте опцию, как показано ниже:
 
 ```sh
 ruby ... --factory-doctor
 ```
 
-The same option to force Factory Doctor to ignore specific examples is also available for Minitest.
-Just use `fd_ignore` inside your example:
+Опция игнорирования определённых тестов, также доступна и для Minitest.
+Просто используйте `fd_ignore` внутри вашего теста.:
 
 ```ruby
 # won't be reported as offense
@@ -121,27 +121,26 @@ it "is ignored" do
 end
 ```
 
-### Using with Minitest::Reporters
+### Использование с Minitest::Reporters
 
-If you're using `Minitest::Reporters` in your project you have to explicitly declare it
-in your test helper file:
+Если в вашем проекте вы используете `Minitest::Reporters`,
+то вы должны явно объявить в вашем хeлпере это:
 
 ```sh
 require 'minitest/reporters'
 Minitest::Reporters.use! [YOUR_FAVORITE_REPORTERS]
 ```
 
-**NOTE**: When you have `minitest-reporters` installed as a gem but not declared in your `Gemfile`
-make sure to always prepend your test run command with `bundle exec` (but we sure that you always do it).
-Otherwise, you'll get an error caused by Minitest plugin system, which scans all the entries in the
-`$LOAD_PATH` for any `minitest/*_plugin.rb`, thus initialization of `minitest-reporters` plugin which is
-available in that case doesn't happens correctly.
+**Примечание**: Когда у вас установлен гем `minitest-reporters` но не объявлен в вашем `Gemfile`,
+убедитесь, что всегда выполняете команду запуска тестов с `bundle exec` (но мы уверенны, что вы и так это всегда делаете).
+Иначе, вы получите ошибку, вызванную системой плагинов Minitest, которая ищет все файлы в `$LOAD_PATH` для любого `minitest/*_plugin.rb`,
+таким образом инициализация плагина `minitest-reporters`, который доступен в этом случает, происходи некорректно
 
-## Configuration
+## Конфигурация
 
 > @since v0.9.0
 
-The following configuration parameters are available (showing defaults):
+Доступны следующие параметры конфигурации (показаны значения по умолчанию):
 
 ```ruby
 TestProf::FactoryDoctor.configure do |config|
@@ -152,4 +151,4 @@ TestProf::FactoryDoctor.configure do |config|
 end
 ```
 
-You can use the corresponding env variables as well: `FDOC_EVENT` and `FDOC_THRESHOLD`.
+Вы можете использовать соответствующие переменные окружения, а также: `FDOC_EVENT` и `FDOC_THRESHOLD`.
