@@ -34,7 +34,7 @@ describe BeatleWeightedSearchQuery do
 end
 ```
 
-Но тогда вам придется иметь дело с очисткой базы данных, которая может быть шустрой или медленной.
+Но тогда вам придется иметь дело с очисткой базы данных, которая может быть сложной и медленной.
 
 Есть лучший вариант: мы можем обернуть всю группу примеров в транзакцию.
 И вот как работает `before_all`:
@@ -67,8 +67,8 @@ end
 require "test_prof/recipes/rspec/before_all"
 ```
 
-**Примечание**: `before_all` (и `let_it_be` что от него зависит), не оборачивает индивидуальное
-тесты в собственной транзакции базы данных. Используйте из Rails `use_transactional_tests`
+**Примечание**: `before_all` (и `let_it_be`, который от него зависит), не оборачивает индивидуальное
+тесты в собственной транзакции базы данных. Используйте нативный Rails `use_transactional_tests`
 (`use_transactional_fixtures` в Rails < 5.1), RSpec Rails' `use_transactional_fixtures`,
 DatabaseCleaner, или свой код, который будет создавать транзакцию перед тестом и откатывать ее после.
 
@@ -91,11 +91,11 @@ class MyBeatlesTest < Minitest::Test
     @john = create(:beatle, name: "John")
   end
 
-  # define tests which could access the object defined within `before_all`
+  # можно определить тесты, которые используют объекты определенные в `before_all`
 end
 ```
 
-## Database adapters
+## Адаптеры баз данных
 
 Вы можете использовать `before_all` не только с ActiveRecord (который поддерживается из коробки), но и с другими инструментами для работы с базой данных.
 
@@ -103,7 +103,7 @@ end
 
 ```ruby
 class MyDBAdapter
-  # before_all adapters must implement two methods:
+  # before_all адаптеры должны реализовывать два метода:
   # - begin_transaction
   # - rollback_transaction
   def begin_transaction
@@ -115,7 +115,7 @@ class MyDBAdapter
   end
 end
 
-# And then set adapter for `BeforeAll` module
+# А затем установите адаптер для `BeforeAll` модуля
 TestProf::BeforeAll.adapter = MyDBAdapter.new
 ```
 
@@ -123,19 +123,19 @@ TestProf::BeforeAll.adapter = MyDBAdapter.new
 
 > @since v0.9.0
 
-Вы можете зарегистрировать колбеки для до/после открытия и отката транзакции `before_all:
+Вы можете зарегистрировать callback-функции для до/после открытия и отката транзакции `before_all:
 
 ```ruby
 TestProf::BeforeAll.configure do |config|
   config.before(:begin) do
-    # do something before transaction opens
+    # что-то выполняется до открытия транзакции
   end
-  # after(:begin) is also available
+  # after(:begin) также доступен
 
   config.after(:rollback) do
-    # do something after transaction closes
+    # что-то выполняется после закрытия транзакции
   end
-  # before(:rollback) is also available
+  # before(:rollback) также доступен
 end
 ```
 
@@ -143,7 +143,7 @@ end
 
 ## Предостережения
 
-### База данных откатывается в первозданное состояние, но объекты - нет
+### База данных откатывается в первоначальное состояние, но объекты - нет
 
 Если вы измените объекты, созданные в блоке `before_all`, в вашем тесте, то вам, возможно, придется повторно инициировать их:
 
@@ -205,9 +205,9 @@ end
 
 [Isolator](https://github.com/palkan/isolator) Это рантайм детектор потенциальных нарушений атомарности в транзакциях БД (например, выполнение HTTP-вызовов или постановка в очередь фоновых заданий).
 
-TestProf распознает Isolator из коробки и делает так чтобы он игнорировал `before_all` транзакции.
+TestProf распознает Isolator из коробки и делает так, чтобы он игнорировал `before_all` транзакции.
 
-Вам просто нужно убедиться, что вы подключили `isolator` после _TestProf helpers_ или подключили патч явно::
+Вам просто нужно убедиться, что вы подключили `isolator` после _TestProf helpers_ или подключили патч явно:
 
 ```ruby
 # after loading before_all or/and let_it_be
