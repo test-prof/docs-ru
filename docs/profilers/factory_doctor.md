@@ -1,6 +1,6 @@
 # Factory Doctor
 
-Одна из распространенных причин, замедляющих наши тесты - это не нужные манипуляции с базой данных. Рассмотрим _плохой_ пример:
+Одна из распространенных причин, замедляющих наши тесты, — это ненужные манипуляции с базой данных. Рассмотрим _плохой_ пример:
 
 ```ruby
 # with FactoryBot/FactoryGirl
@@ -18,7 +18,7 @@ it "validates name presence" do
 end
 ```
 
-Здесь мы создаем новую запись, запуская колбеки и валидации, и сохраняем ее в базу данных. Нам все это не нужно!  Вот _хороший_ пример::
+Здесь мы создаем новую запись, запуская callback - функции и валидации, и сохраняем ее в базу данных. Нам все это не нужно!  Вот _хороший_ пример:
 
 ```ruby
 # with FactoryBot/FactoryGirl
@@ -53,15 +53,15 @@ User (./spec/models/user_spec.rb:3) (3 records created, 00:00.628)
   validates email (./spec/user_spec.rb:8) – 2 records created, 00:00.514
 ```
 
-**Примечание**: вы обратили на слово “potentially”(потенциально)? К сожалению, FactoryDoctor не волшебник (он все еще учится)
-и иногда он выдает ложные отрицательные и ложные положительные результаты тоже.
+**Примечание**: вы обратили на слово «potentially» (потенциально)? К сожалению, FactoryDoctor не волшебник (он все еще учится),
+и иногда он выдает ложноотрицательные или ложноположительные результаты.
 
-Пожалуйста, создайте [issue](https://github.com/test-prof/test-prof/issues) если вы нашли пример, в котором FactoryDoctor ошибся.
+Пожалуйста, создайте [issue](https://github.com/test-prof/test-prof/issues), если вы нашли пример, в котором FactoryDoctor ошибся.
 
-Вы также можете сказать FactoryDoctor, чтобы он игнорировал определенные `examples/groups`. Просто добавьте `:fd_ignore` тег для `it`:
+Вы можете исключить отдельные тесты из анализа, добавив  тег `:fd_ignore`:
 
 ```ruby
-# won't be reported as offense
+# данный тест не будет отмечен FactoryDoctor
 it "is ignored", :fd_ignore do
   user = create(:user)
   user.name = ""
@@ -86,7 +86,7 @@ FDOC=1 rspec ...
 
 ### Использование с RSpecStamp
 
-FactoryDoctor может быть использован вместе с [RSpec Stamp](../recipes/rspec_stamp.md) для автоматического выделению _плохих_ тестов с кастомным тегом. Например:
+FactoryDoctor может быть использован вместе с [RSpec Stamp](../recipes/rspec_stamp.md) для автоматического тегирования _плохих_ тестов. Например:
 
 ```sh
 FDOC=1 FDOC_STAMP="fdoc:consider" rspec ...
@@ -108,11 +108,11 @@ FDOC=1 ruby ...
 ruby ... --factory-doctor
 ```
 
-Опция игнорирования определённых тестов, также доступна и для Minitest.
-Просто используйте `fd_ignore` внутри вашего теста.:
+Опция игнорирования определённых тестов также доступна и для Minitest.
+Просто используйте `fd_ignore` внутри вашего теста:
 
 ```ruby
-# won't be reported as offense
+# данный тест не будет отмечен FactoryDoctor
 it "is ignored" do
   fd_ignore
 
@@ -124,19 +124,19 @@ end
 ### Использование с Minitest::Reporters
 
 Если в вашем проекте вы используете `Minitest::Reporters`,
-то вы должны явно объявить в вашем хeлпере это:
+то вам необходимо явно указать это в загрузочном файле (обычно, `test_helper.rb`):
 
 ```sh
 require 'minitest/reporters'
 Minitest::Reporters.use! [YOUR_FAVORITE_REPORTERS]
 ```
 
-**Примечание**: Когда у вас установлен гем `minitest-reporters` но не объявлен в вашем `Gemfile`,
-убедитесь, что всегда выполняете команду запуска тестов с `bundle exec` (но мы уверенны, что вы и так это всегда делаете).
-Иначе, вы получите ошибку, вызванную системой плагинов Minitest, которая ищет все файлы в `$LOAD_PATH` для любого `minitest/*_plugin.rb`,
-таким образом инициализация плагина `minitest-reporters`, который доступен в этом случает, происходи некорректно
+**Примечание**: Когда гем `minitest-reporters`у вас установлен глобально, но не объявлен в вашем `Gemfile`,
+убедитесь, что всегда выполняете команду запуска тестов с `bundle exec` (но мы уверенны, что вы и так это делаете).
+В противном случае вы получите ошибку, вызванную системой плагинов Minitest, которая ищет все файлы в `$LOAD_PATH` для любого `minitest/*_plugin.rb`,
+таким образом инициализация плагина `minitest-reporters`, который доступен в этом случае, происходит некорректно.
 
-## Конфигурация
+## Настройки
 
 > @since v0.9.0
 
@@ -144,11 +144,11 @@ Minitest::Reporters.use! [YOUR_FAVORITE_REPORTERS]
 
 ```ruby
 TestProf::FactoryDoctor.configure do |config|
-  # Which event to track within test example to consider them "DB-dirty"
+  # Какое событие инструментации отслеживать для трекинга запросов к БД
   config.event = "sql.active_record"
-  # Consider result "good" if the time in DB is less then the threshold
+  # Игнорировать запросы к БД, которые заняли меньше указанного времени (в секундах)
   config.threshold = 0.01
 end
 ```
 
-Вы можете использовать соответствующие переменные окружения, а также: `FDOC_EVENT` и `FDOC_THRESHOLD`.
+Вы можете использовать соответствующие переменные окружения для указания данных параметров: `FDOC_EVENT` и `FDOC_THRESHOLD` соответственно.
