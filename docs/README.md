@@ -114,9 +114,9 @@ TestProf представляет собой набор инструментов
 
 ## Что ещё?
 
-Есть идея, что добавить в TestProf? Пожалуйста, [напишите нам](https://github.com/test-prof/test-prof/issues/new)!
+Есть идея, что добавить в TestProf? Пожалуйста, [напишите нам](https://github.com/test-prof/test-prof/discussions)!
 
-Уже используете TestProf? [Поделитесь своей историей!](https://github.com/test-prof/test-prof/issues/73)
+Уже используете TestProf? [Поделитесь своей историей!](https://github.com/test-prof/test-prof/discussions/73)
 
 ## Лицензия
 
