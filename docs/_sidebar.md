@@ -19,7 +19,6 @@
   * [FactoryAllStub](/recipes/factory_all_stub.md)
   * [RSpec Stamp](/recipes/rspec_stamp.md)
   * [Сэмплирование тестов](/recipes/tests_sampling.md)
-  * [Active Record Shared Connection](/recipes/active_record_shared_connection.md)
   * [Логирование в Rails](/recipes/logging.md)
 
 * Разное
