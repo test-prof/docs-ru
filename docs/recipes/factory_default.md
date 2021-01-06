@@ -1,6 +1,6 @@
 # FactoryDefault
 
-_Factory Default_ — это механизм, который помогает бороться с _каскадами фабрик_ (см. [FactoryProf](../profilers/factory_prof.md)) путём переиспользования ассоциированных объектов.
+_FactoryDefault_ — это механизм, который помогает бороться с _каскадами фабрик_ (см. [FactoryProf](../profilers/factory_prof.md)) путём переиспользования ассоциированных объектов.
 
 **Примечание**: Поддерживается только FactoryGirl/FactoryBot.
 
