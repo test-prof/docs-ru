@@ -134,7 +134,7 @@ TestProf::LetItBe.configure do |config|
   # Так выглядит определение модификатора `reload`:
   # первый аргумент — это объект, второй — значение модификатора
   config.register_modifier :reload do |record, val|
-    # игнорируем, если указано`reload: false`
+    # игнорируем, если указано `reload: false`
     next record unless val
     # игнорируем не-ActiveRecord объекты
     next record unless record.is_a?(::ActiveRecord::Base)

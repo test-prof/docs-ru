@@ -168,7 +168,7 @@ it "when user is regular" do
 end
 ```
 
-Самый простой способ решить эту проблему - перезагрузить запись для каждого теста (это все равно намного быстрее, чем создание нового):
+Самый простой способ решить эту проблему - перезагрузить запись для каждого теста (это все равно намного быстрее, чем создание новой):
 
 ```ruby
 before_all do
@@ -195,7 +195,9 @@ end
 
 ```ruby
 RSpec.configure do |config|
-  config.use_transactional_fixtures = true # RSpec позаботится о том, чтобы использовать `use_transactional_tests` or `use_transactional_fixtures` в зависимости от вашей версии Rails
+  # RSpec позаботится о том, чтобы использовать `use_transactional_tests` или 
+  # `use_transactional_fixtures` в зависимости от вашей версии Rails
+  config.use_transactional_fixtures = true
 end
 ```
 
