@@ -175,7 +175,7 @@ end
 context "with reload", let_it_be_modifiers: {reload: true} do
   # здесь будет использовано freeze: false, reload: true
 
-  context "with freeze", let_it_be_modifiers: {free: true} do
+  context "with freeze", let_it_be_modifiers: {freeze: true} do
     # здесь будет использовано только freeze: true (reload: true будет перезаписан)
   end
 end
