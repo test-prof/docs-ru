@@ -30,7 +30,7 @@ TEST_RUBY_PROF=1 rspec ...
 TestProf::RubyProf.run
 ```
 
-TestProf также предоставляет специальный контекст (shared context) для RSpec для профилирования конкретных примеров.
+TestProf также предоставляет специальный контекст (shared context) для RSpec для профилирования конкретных тестов.
 Подключить его можно с помощью тега `rprof`:
 
 ```ruby
