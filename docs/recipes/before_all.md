@@ -123,8 +123,6 @@ TestProf::BeforeAll.adapter = MyDBAdapter.new
 
 ## Callback-функции
 
-> @since v0.9.0
-
 Вы можете зарегистрировать callback-функции для событий открытия и отката транзакции `before_all:
 
 ```ruby
@@ -219,8 +217,6 @@ require "test_prof/before_all/isolator"
 ```
 
 ## Использование с Rails fixtures (_экспериментальная функция_)
-
-> @since v1.0.0
 
 Если вы хотите использовать фикстуры в `before_all` коллбеках, вам необходимо явно их инициировать, используя опцию `setup_fixture:`:
 

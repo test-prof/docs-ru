@@ -74,7 +74,7 @@ end
 FactoryDoctor поддерживает:
 
 - FactoryGirl/FactoryBot
-- Fabrication (**@since v0.9.0**).
+- Fabrication.
 
 ### RSpec
 
@@ -137,8 +137,6 @@ Minitest::Reporters.use! [YOUR_FAVORITE_REPORTERS]
 таким образом инициализация плагина `minitest-reporters`, который доступен в этом случае, происходит некорректно.
 
 ## Настройки
-
-> @since v0.9.0
 
 Доступны следующие параметры конфигурации (показаны значения по умолчанию):
 
