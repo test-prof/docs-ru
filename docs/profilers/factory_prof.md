@@ -38,6 +38,22 @@ FPROF=1 rspec
 FPROF=1 bundle exec rake test
 ```
 
+### Режим [_задиры Нейта_](https://twitter.com/nateberkopec/status/1389945187766456333)
+
+Чтобы вы не забывали о том, сколько времени _съедают_ ваши фабрики, мы предлагаем вам использовать специальный режим работы Factory Prof, придуманный [Нейтом Беркопеком](https://twitter.com/nateberkopec).
+
+Добавьте в ваш `rails_helper.rb` или `test_helper.rb` следующую строчку:
+
+```ruby
+require "test_prof/factory_prof/nate_heckler"
+```
+
+Теперь в конце каждого запуска тестов вы будете видеть, сколько времени вы потратили на создание данных фабриками:
+
+```sh
+[TEST PROF INFO] Time spent in factories: 04:31.222 (54% of total time)
+```
+
 ## Флеймграфы для фабрик
 
 Наиболее полезным форматом отчёта FactoryProf является так называемый _FactoryFlame_ отчёт. Данный формат является адаптацией оригинальной идеи _флеймграфов_, [представленной Брэндоном Греггом](http://www.brendangregg.com/flamegraphs.html). Данный формат помогает **находить каскады фабрик**.

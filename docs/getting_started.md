@@ -36,6 +36,12 @@ TestProf.configure do |config|
 
   # подсвечивать вывод
   config.color = true
+
+  # указать устройство вывода для логов (файл или STDOUT)
+  config.output = $stdout
+
+  # или даже определить свой логгер
+  config.logger = MyLogger.new
 end
 ```
 
