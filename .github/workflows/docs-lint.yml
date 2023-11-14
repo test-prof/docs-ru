@@ -7,10 +7,12 @@ on:
     paths:
     - "**/*.md"
     - ".github/workflows/docs-lint.yml"
+    - ".yaspellerrc"
   pull_request:
     paths:
     - "**/*.md"
     - ".github/workflows/docs-lint.yml"
+    - ".yaspellerrc"
 
 jobs:
   docs-lint:

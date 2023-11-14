@@ -28,6 +28,16 @@
     "Инвалидация",
     "Нейта",
     "Нейтом",
-    "Беркопеком"
+    "Беркопеком",
+    "Копы",
+    "RuboCop",
+    "Wisper",
+    "Bootsnap",
+    "BalkanRuby",
+    "AnyFixture",
+    "FactoryDefault",
+    "Factory",
+    "Prof",
+    "slow"
   ]
 }
