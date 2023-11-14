@@ -16,6 +16,7 @@ jobs:
   docs-lint:
     uses: anycable/github-actions/.github/workflows/docs-lint.yml@master
     with:
+      mdl-path: "*.md"
       forspell: false
       lychee-args: docs/* --exclude "(assets)/"
 
