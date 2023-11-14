@@ -1,6 +1,7 @@
 <!-- markdownlint-disable -->
 
 * [Начало работы](/getting_started.md)
+* [Краткое руководство](/playbook.md)
 
 * Профилирование
   * [Интеграция с RubyProf](/profilers/ruby_prof.md)
