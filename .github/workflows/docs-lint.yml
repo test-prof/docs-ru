@@ -8,11 +8,13 @@ on:
     - "**/*.md"
     - ".github/workflows/docs-lint.yml"
     - ".yaspellerrc"
+    - ".rubocop-md.yml"
   pull_request:
     paths:
     - "**/*.md"
     - ".github/workflows/docs-lint.yml"
     - ".yaspellerrc"
+    - ".rubocop-md.yml"
 
 jobs:
   docs-lint:
