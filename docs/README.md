@@ -6,7 +6,7 @@
 > Коллекция инструментов для профилирования и оптимизации тестов приложений на Ruby
 
 <img align="right" height="150" width="129"
-     title="TestProf logo" class="home-logo" src="./assets/images/logo.svg">
+     title="TestProf logo" class="home-logo" src="/assets/images/logo.svg">
 
 TestProf — это набор инструментов для анализа производительности тестов на Ruby, а так же быстрого исправления обнаруженных проблем.
 
@@ -30,7 +30,7 @@ TestProf помогает вам обнаружить и устранить ос
 
 <p align="center">
   <a href="http://bit.ly/test-prof-map-v1">
-    <img src="./assets/images/coggle.png" alt="TestProf map" width="738">
+    <img src="/assets/images/coggle.png" alt="TestProf map" width="738">
   </a>
 </p>
 
